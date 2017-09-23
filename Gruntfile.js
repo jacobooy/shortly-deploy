@@ -54,6 +54,8 @@ module.exports = function(grunt) {
       }
     },
 
+
+
     watch: {
       scripts: {
         files: [
@@ -73,8 +75,18 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: 'git push live master'
       }
     },
+
+    gitpush: {
+      target: {
+        options: {
+          remote: 'live',
+          branch: 'master'
+        }
+      }
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -85,6 +97,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-git');
 
   grunt.registerTask('server-dev', function (target) {
     grunt.task.run([ 'nodemon', 'watch' ]);
@@ -108,8 +121,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('upload', function(n) {
     if (grunt.option('prod')) {
-      console.log('we up in prod yo')
-    // git push live master ssh://root@ipaddress/var/repo/site.git
+      'gitpush'
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
