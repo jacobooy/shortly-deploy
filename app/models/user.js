@@ -1,3 +1,4 @@
+var db = require('../config');
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var Promise = require('bluebird');
@@ -24,6 +25,7 @@ userSchema.pre('save', function(next) {
   return cipher(this.get('password'), null, null).bind(this)
     .then(function(hash) {
       this.password = hash;
+      next();
     });
 });
 
