@@ -10,9 +10,4 @@ db.once('open', function() {
 });
 
 
-
-// user.increments('id').primary();
-// user.string('username', 100).unique();
-// user.string('password', 100);
-
 module.exports = db;
